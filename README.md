@@ -1,16 +1,16 @@
 # OfficeClock
 
-A lightweight Windows tray app that automatically logs office check-in and check-out from your office PC, so you always know your working hours without pressing a button.
+A lightweight Windows tray app that automatically logs your daily login and logout times and shows how many hours you worked, with no buttons to press.
 
 ## Why
 
-Attendance and working hours are usually tracked by hand: remembering to note when you arrived, when you left, and adding it up at the end of the month. On an office PC, the machine already knows when your day starts and ends. OfficeClock treats **Windows start as check-in** and **Windows shutdown as check-out**, and keeps a simple daily record of it.
+Tracking working hours by hand means remembering when you started, when you stopped, and adding it all up at the end of the month. Your PC already knows when your day begins and ends. This app treats **Windows start as your login time** and **Windows shutdown as your logout time**, and keeps a simple daily record of both.
 
 ## Features
 
-- **Automatic check-in** at launch, using the Windows boot time when the app starts within 10 minutes of boot. Only the first launch of a day sets the day's In time.
-- **Automatic check-out** on shutdown, restart, logoff or exit.
-- **Crash and power-cut safe.** A 60-second heartbeat keeps the day's Out time current, and any unclosed day is closed at its last heartbeat on the next start.
+- **Automatic login time** at launch, using the Windows boot time when the app starts within 10 minutes of boot. Only the first launch of a day sets that day's login time.
+- **Automatic logout time** on shutdown, restart, logoff or exit.
+- **Crash and power-cut safe.** A 60-second heartbeat keeps the logout time current, and any unclosed day is closed at its last heartbeat on the next start.
 - **Daily grid** with Date, Day, In, Out and Total Hours, a month selector, and a footer with the month's total hours and days worked. Today's row updates live.
 - **Edit and delete records.** Double-click a row to correct In or Out. Press Delete or right-click to remove a past day.
 - **Daily target notification.** Set your working hours per day and get a popup once when you reach them.
@@ -18,9 +18,9 @@ Attendance and working hours are usually tracked by hand: remembering to note wh
 - **Starts with Windows** (per user, no admin rights, on by default).
 - **Single instance.** A second launch brings the existing window to the front.
 
-### Work time rules
+### How hours are counted
 
-Total hours = Out − In. Lunch breaks, locked screen, sleep and hibernate all count as work time. If the PC runs past midnight, the day ends at 23:59:59 and a new record starts at 00:00:00.
+Total hours = Out − In. Breaks, a locked screen, sleep and hibernate all count as work time. If the PC runs past midnight, the day ends at 23:59:59 and a new record starts at 00:00:00.
 
 ## Tech stack
 
@@ -44,7 +44,7 @@ dotnet publish src/OfficeClock -c Release -r win-x64 --self-contained -p:Publish
 
 Stored locally in `%LocalAppData%\OfficeClock\`:
 
-- `clock.db`: the attendance records (SQLite)
+- `clock.db`: the records (SQLite)
 - `log.txt`: error log
 
 Nothing leaves your PC.
@@ -52,7 +52,7 @@ Nothing leaves your PC.
 ## Known limits
 
 - Single user, single PC. No server sync.
-- With Windows Fast Startup enabled, the boot time reported by Windows can be inaccurate, which may affect the detected In time.
+- With Windows Fast Startup enabled, the boot time reported by Windows can be inaccurate, which may affect the detected login time.
 - The tray icon opens the window on a single click, not a double-click.
 
 ## Roadmap
