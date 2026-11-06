@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="OfficeClock.Views.MainWindow"
+        Title="OfficeClock" Width="520" Height="520"
+        Icon="/Assets/tray.ico" WindowStartupLocation="CenterScreen">
+  <DockPanel Margin="12">
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+      <Button Content="&lt;" Command="{Binding PrevMonthCommand}" />
+      <TextBlock Text="{Binding MonthLabel}" VerticalAlignment="Center" MinWidth="140" TextAlignment="Center" />
+      <Button Content="&gt;" Command="{Binding NextMonthCommand}" />
+    </StackPanel>
+    <TextBlock DockPanel.Dock="Bottom" Text="{Binding Footer}" Margin="0,8,0,0" FontWeight="SemiBold" />
+    <DataGrid x:Name="Grid" DoubleTapped="OnRowDoubleTapped" KeyDown="OnGridKeyDown" ItemsSource="{Binding Rows}" IsReadOnly="True" AutoGenerateColumns="False"
+              GridLinesVisibility="Horizontal">
+      <DataGrid.ContextMenu>
+        <ContextMenu>
+          <MenuItem Header="Delete" Click="OnDeleteClick" />
+        </ContextMenu>
+      </DataGrid.ContextMenu>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Date" Binding="{Binding DateText}" />
+        <DataGridTextColumn Header="Day" Binding="{Binding DayText}" />
+        <DataGridTextColumn Header="In" Binding="{Binding InText}" />
+        <DataGridTextColumn Header="Out" Binding="{Binding OutText}" />
+        <DataGridTextColumn Header="Total Hours" Binding="{Binding TotalText}" Width="*" />
+      </DataGrid.Columns>
+    </DataGrid>
+  </DockPanel>
+</Window>
